@@ -6,6 +6,7 @@ import SearchBox from "./components/SearchBox";
 import Main from "./components/Main";
 import Shop from "./components/Shop";
 import MyPage from "./components/MyPage/MyPage";
+import User from "./components/User";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 
 class App extends Component {
@@ -21,6 +22,9 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="root">
+          <Link className="" to="/user/login">
+              로그인
+          </Link>
           <Top title="Shopping Mall" sub="with react"></Top>
           <SearchBox
             onSetValue={value => {
@@ -57,6 +61,7 @@ class App extends Component {
             <Route exact path="/" component={Main} />
             <Route path="/shop/:name" component={Shop} />
             <Route path="/mypage/:name" component={MyPage} />
+            <Route path="/user/:name" component={User} />
           </article>
         </div>
       </BrowserRouter>

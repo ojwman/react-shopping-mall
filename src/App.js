@@ -4,6 +4,7 @@ import SearchBox from "./components/SearchBox";
 import Main from "./components/Main";
 import Shop from "./components/Shop";
 import MyPage from "./components/MyPage/MyPage";
+import User from "./components/User";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 
 //import "./w3.css";
@@ -21,6 +22,9 @@ class App extends Component {
     console.log("App render", this);
     return (
       <BrowserRouter>
+        <Link className="" to="/user/login">
+          로그인
+        </Link>
         <div className="container">
           <div className="col-md-12">
             <Top title="Shopping Mall" sub="with react"></Top>
@@ -83,6 +87,7 @@ class App extends Component {
               <Route exact path="/" component={Main} />
               <Route path="/shop/:name" component={Shop} />
               <Route path="/mypage/:name" component={MyPage} />
+              <Route path="/user/:name" component={User} />
             </article>
           </div>
         </div>

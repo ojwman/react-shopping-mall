@@ -5,12 +5,12 @@ class SearchBox extends Component {
   render() {
     console.log("SearchBox render");
     return (
-      <div className="w3-container w3-padding-16">
+      <div className="input-group">
         {/* <label className="w3-text-blue">검색어</label> */}
         <input
           type="text"
-          className="w3-input w3-border w3-round"
-          style={{ width: "calc(100% - 68px)", display: "inline" }}
+          className="form-control"
+          placeholder="Search for..."
           onKeyPress={function(e) {
             if (e.charCode === 13) {
               var value = e.target.value;
@@ -24,13 +24,14 @@ class SearchBox extends Component {
             }
           }.bind(this)}
         />
-        &nbsp;
-        <button
-          className="w3-button w3-round w3-blue"
-          style={{ marginBottom: "4px" }}
-        >
-          검색
-        </button>
+        <span>
+          <button
+            className="btn btn-default"
+            //style={{ marginBottom: "4px" }}
+          >
+            검색
+          </button>
+        </span>
       </div>
     );
   }

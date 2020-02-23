@@ -5,7 +5,7 @@ import Main from "./components/Main";
 import Shop from "./components/Shop";
 import MyPage from "./components/MyPage/MyPage";
 import User from "./components/User";
-import { BrowserRouter, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 //import "./w3.css";
 //import { Container, Row, Col, Nav, NavItem, NavLink } from "reactstrap";
@@ -21,11 +21,8 @@ class App extends Component {
   render() {
     console.log("App render", this);
     return (
-      <BrowserRouter>
-        <Link className="" to="/user/login">
-          로그인
-        </Link>
-        <div className="container">
+      <Router>
+        <div className="container-fluid">
           <div className="col-md-12">
             <Top title="Shopping Mall" sub="with react"></Top>
           </div>
@@ -53,35 +50,44 @@ class App extends Component {
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
                 </button>
-                <a className="navbar-brand" href="#">
+                <Link className="navbar-brand" to="/">
                   Brand
-                </a>
+                </Link>
               </div>
-
-              <ul className="nav navbar-nav">
-                <li>
-                  <Link
-                    className="w3-bar-item w3-button"
-                    to={"/shop/item-list?keyword=" + this.state.keyword}
-                    id="link-item-list"
-                  >
-                    아이템 리스트
-                  </Link>
-                </li>
-                <li>
-                  <Link className="w3-bar-item w3-button" to="/shop/basket">
-                    장바구니
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="w3-bar-item w3-button"
-                    to="/mypage/basic-info"
-                  >
-                    마이페이지
-                  </Link>
-                </li>
-              </ul>
+              <div className="collapse navbar-collapse">
+                <ul className="nav navbar-nav">
+                  <li>
+                    <Link
+                      className=""
+                      to={"/shop/item-list?keyword=" + this.state.keyword}
+                      id="link-item-list"
+                    >
+                      아이템 리스트
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="" to="/shop/basket">
+                      장바구니
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="" to="/mypage/basic-info">
+                      마이페이지
+                    </Link>
+                  </li>
+                </ul>
+                <ul className="nav navbar-nav navbar-right">
+                  <li>
+                    <Link
+                      className="btn btn-default"
+                      to="/user/login"
+                      style={{ padding: "10px", margin: "4px" }}
+                    >
+                      로그인
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </nav>
             <article className="w3-container">
               <Route exact path="/" component={Main} />
@@ -91,7 +97,7 @@ class App extends Component {
             </article>
           </div>
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }

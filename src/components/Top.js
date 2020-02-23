@@ -4,10 +4,10 @@ class Top extends Component {
   render() {
     console.log("Top render");
     return (
-      <header className="w3-display-container" style={{ height: "100px" }}>
+      <header className="page-header text-center">
         <Link to="/">
-          <h1 className="w3-display-topmiddle">{this.props.title}</h1>
-          <h6 className="w3-display-bottommiddle">{this.props.sub}</h6>
+          <h1 className="">{this.props.title}</h1>
+          <h3 className="">{this.props.sub}</h3>
         </Link>
       </header>
     );

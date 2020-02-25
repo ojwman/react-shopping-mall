@@ -5,10 +5,7 @@ class SearchBox extends Component {
   render() {
     console.log("SearchBox render");
     return (
-      <div
-        className="center-block"
-        style={{ width: "740px", marginBottom: "10px" }}
-      >
+      <div className="center-block" style={{ marginBottom: "10px" }}>
         <div className="input-group ">
           {/* <label className="w3-text-blue">검색어</label> */}
           <input

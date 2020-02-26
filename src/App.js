@@ -8,18 +8,21 @@ import User from "./components/User";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 //import "./w3.css";
-//import { Container, Row, Col, Nav, NavItem, NavLink } from "reactstrap";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      keyword: ""
+      keyword: "",
+      navCollapsed: true
     };
   }
-
+  _onToggleNav = () => {
+    this.setState({ navCollapsed: !this.state.navCollapsed });
+  };
   render() {
     console.log("App render", this);
+    const { navCollapsed } = this.state;
     return (
       <Router>
         <div className="container-fluid">
@@ -27,14 +30,18 @@ class App extends Component {
             <Top title="Shopping Mall" sub="with react"></Top>
           </div>
           <div className="col-md-12">
-            <SearchBox
-              onSetValue={value => {
-                // alert(value);
-                this.setState({
-                  keyword: value
-                });
-              }}
-            />
+            <div className="col-md-2"></div>
+            <div className="col-md-8">
+              <SearchBox
+                onSetValue={value => {
+                  // alert(value);
+                  this.setState({
+                    keyword: value
+                  });
+                }}
+              />
+            </div>
+            <div className="col-md-2"></div>
           </div>
           <div className="col-md-12">
             <nav className="navbar navbar-default">
@@ -42,6 +49,7 @@ class App extends Component {
                 <button
                   type="button"
                   className="navbar-toggle collapsed"
+                  onClick={this._onToggleNav}
                   data-toggle="collapse"
                   data-target="#bs-example-navbar-collapse-1"
                 >
@@ -54,11 +62,14 @@ class App extends Component {
                   Brand
                 </Link>
               </div>
-              <div className="collapse navbar-collapse">
+              <div
+                className={
+                  (navCollapsed ? "collapse" : "") + " navbar-collapse"
+                }
+              >
                 <ul className="nav navbar-nav">
                   <li>
                     <Link
-                      className=""
                       to={"/shop/item-list?keyword=" + this.state.keyword}
                       id="link-item-list"
                     >
@@ -66,14 +77,10 @@ class App extends Component {
                     </Link>
                   </li>
                   <li>
-                    <Link className="" to="/shop/basket">
-                      장바구니
-                    </Link>
+                    <Link to="/shop/basket">장바구니</Link>
                   </li>
                   <li>
-                    <Link className="" to="/mypage/basic-info">
-                      마이페이지
-                    </Link>
+                    <Link to="/mypage/basic-info">마이페이지</Link>
                   </li>
                 </ul>
                 <ul className="nav navbar-nav navbar-right">

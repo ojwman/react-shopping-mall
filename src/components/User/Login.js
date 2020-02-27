@@ -6,7 +6,7 @@ class Login extends Component {
     return (
       <form className="form-horizontal">
         <div className="form-group">
-          <label for="loginId" className="col-sm-2 control-label">
+          <label htmlFor="loginId" className="col-sm-2 control-label">
             ID
           </label>
           <div className="col-sm-10">
@@ -19,7 +19,7 @@ class Login extends Component {
           </div>
         </div>
         <div className="form-group">
-          <label for="loginPassword" className="col-sm-2 control-label">
+          <label htmlFor="loginPassword" className="col-sm-2 control-label">
             PW
           </label>
           <div className="col-sm-10">
@@ -52,17 +52,19 @@ class Login extends Component {
       id: document.getElementById("loginId").value,
       password: document.getElementById("loginPassword").value
     };
-
+    const formData = new URLSearchParams();
+    formData.append("id", oData.id);
+    formData.append("password", oData.password);
     var oOption = {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
-      //mode: 'cors', // no-cors, cors, *same-origin
+      //mode: "cors", // no-cors, cors, *same-origin
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/x-www-form-urlencoded"
       },
-      body: JSON.stringify(oData) // body data type must match "Content-Type" header
+      body: formData
+      //body: JSON.stringify(oData) // body data type must match "Content-Type" header
     };
-
-    fetch("http://localhost:9090/user/login", oOption)
+    fetch(process.env.REACT_APP_BACKEND_API_URL + "/user/login", oOption)
       .then(res => {
         if (res.status === 200) {
           res.text().then(text => {

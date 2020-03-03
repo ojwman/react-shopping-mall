@@ -6,6 +6,7 @@ import Shop from "./components/Shop";
 import MyPage from "./components/MyPage/MyPage";
 import User from "./components/User";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import gStore from "./store";
 
 //import "./w3.css";
 
@@ -14,18 +15,26 @@ class App extends Component {
     super(props);
     this.state = {
       keyword: "",
-      navCollapsed: true
+      navCollapsed: true,
+      loginYN: window.localStorage.getItem("token")
     };
+    gStore.subscribe(() => {
+      console.log("gStore값 변경");
+      this.setState({
+        loginYN: gStore.getState().loginYN
+      });
+      console.log("loginYN", this.state.loginYN);
+    });
   }
   _onToggleNav = () => {
     this.setState({ navCollapsed: !this.state.navCollapsed });
   };
   render() {
-    console.log("App render", this);
+    console.log("App render");
     const { navCollapsed } = this.state;
     return (
-      <Router>
-        <div className="container-fluid">
+      <div className="container-fluid">
+        <Router>
           <div className="col-md-12">
             <Top title="Shopping Mall" sub="with react"></Top>
           </div>
@@ -34,7 +43,6 @@ class App extends Component {
             <div className="col-md-8">
               <SearchBox
                 onSetValue={value => {
-                  // alert(value);
                   this.setState({
                     keyword: value
                   });
@@ -86,11 +94,30 @@ class App extends Component {
                 <ul className="nav navbar-nav navbar-right">
                   <li>
                     <Link
-                      className="btn btn-default"
+                      id="loginBtn"
+                      className={
+                        (this.state.loginYN === "Y" ? "hidden" : "show") +
+                        " btn btn-default"
+                      }
                       to="/user/login"
                       style={{ padding: "10px", margin: "4px" }}
                     >
                       로그인
+                    </Link>
+                    <Link
+                      id="mypageBtn"
+                      className={
+                        (this.state.loginYN === "Y" ? "show" : "hidden") +
+                        " btn btn-default"
+                      }
+                      to="/mypage/basic-info"
+                      style={{
+                        padding: "10px",
+                        margin: "4px",
+                        display: "none"
+                      }}
+                    >
+                      마이페이지
                     </Link>
                   </li>
                 </ul>
@@ -103,8 +130,8 @@ class App extends Component {
               <Route path="/user/:name" component={User} />
             </article>
           </div>
-        </div>
-      </Router>
+        </Router>
+      </div>
     );
   }
 }

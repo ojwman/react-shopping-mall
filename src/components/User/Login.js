@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-//import axios from "axios";
-
+import { withRouter } from "react-router-dom";
+import gStore from "../../store";
 class Login extends Component {
   render() {
     console.log("Login render");
@@ -64,12 +64,10 @@ class Login extends Component {
     formData.append("password", oData.password);
     var oOption = {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
-      //mode: "cors", // no-cors, cors, *same-origin
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       body: formData
-      //body: JSON.stringify(oData) // body data type must match "Content-Type" header
     };
     fetch(process.env.REACT_APP_BACKEND_API_URL + "/user/login", oOption)
       .then(res => {
@@ -79,11 +77,12 @@ class Login extends Component {
 
             if (oResult.bUser === true) {
               alert("is User");
-
               var token = res.headers.get("token");
               window.localStorage.setItem("token", token);
+              gStore.dispatch({ type: "LOGIN", jwt_token: "Y" });
+              this.props.history.push("/");
             } else {
-              alert("no User");
+              alert("ID 또는 PW가 틀렸습니다.");
             }
           });
         } else {
@@ -94,4 +93,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

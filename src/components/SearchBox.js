@@ -21,7 +21,6 @@ class SearchBox extends Component {
                 }
                 this.props.onSetValue(value);
                 this.props.history.push("/shop/item-list?searchStr=" + value);
-                debugger;
               }
             }.bind(this)}
           />

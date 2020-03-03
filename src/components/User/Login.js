@@ -1,10 +1,17 @@
 import React, { Component } from "react";
+//import axios from "axios";
 
 class Login extends Component {
   render() {
     console.log("Login render");
     return (
-      <form className="form-horizontal">
+      <form
+        className="form-horizontal"
+        onSubmit={function(e) {
+          //form submit 막기위함
+          e.preventDefault();
+        }}
+      >
         <div className="form-group">
           <label htmlFor="loginId" className="col-sm-2 control-label">
             ID

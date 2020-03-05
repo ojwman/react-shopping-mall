@@ -18,9 +18,6 @@ class App extends Component {
       keyword: ""
     };
   }
-  _onToggleNav = () => {
-    this.setState({ navCollapsed: !this.state.navCollapsed });
-  };
   render() {
     console.log("App render");
     return (

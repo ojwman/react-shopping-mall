@@ -7,6 +7,7 @@ class Menu extends Component {
     super(props);
     this.state = {
       navCollapsed: true,
+      liOpened: true,
       loginYN: window.localStorage.getItem("token")
     };
     gStore.subscribe(() => {
@@ -17,9 +18,15 @@ class Menu extends Component {
       console.log("loginYN", this.state.loginYN);
     });
   }
+  _onToggleNav = () => {
+    this.setState({ navCollapsed: !this.state.navCollapsed });
+  };
+  _onToggleLi = () => {
+    this.setState({ liOpened: !this.state.liOpened });
+  };
   render() {
     console.log("Menu render");
-    const { navCollapsed } = this.state;
+    const { navCollapsed, liOpened } = this.state;
     return (
       <nav className="navbar navbar-default">
         <div className="navbar-header">
@@ -30,7 +37,6 @@ class Menu extends Component {
             data-toggle="collapse"
             data-target="#bs-example-navbar-collapse-1"
           >
-            <span className="sr-only">Toggle navigation</span>
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
@@ -54,6 +60,39 @@ class Menu extends Component {
             </li>
             <li>
               <Link to="/mypage/basic-info">마이페이지</Link>
+            </li>
+            <li
+              className={"dropdown " + (liOpened ? "" : "open")}
+              onClick={this._onToggleLi}
+            >
+              <Link
+                to="/"
+                className="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-expanded="false"
+              >
+                Dropdown <span className="caret"></span>
+              </Link>
+              <ul className="dropdown-menu" role="menu">
+                <li>
+                  <Link to="/">Action</Link>
+                </li>
+                <li>
+                  <Link to="/">Another action</Link>
+                </li>
+                <li>
+                  <Link to="/">Something else here</Link>
+                </li>
+                <li className="divider"></li>
+                <li>
+                  <Link to="/">Separated link</Link>
+                </li>
+                <li className="divider"></li>
+                <li>
+                  <Link to="/">One more separated link</Link>
+                </li>
+              </ul>
             </li>
           </ul>
           <ul className="nav navbar-nav navbar-right">

@@ -58,6 +58,7 @@ class Menu extends Component {
             </li>
             <li className="dropdown">
               <Link
+                to="#"
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 role="button"
@@ -87,6 +88,7 @@ class Menu extends Component {
             </li>
             <li className="dropdown">
               <Link
+                to="#"
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 role="button"
@@ -105,6 +107,7 @@ class Menu extends Component {
             </li>
             <li className="dropdown">
               <Link
+                to="#"
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 role="button"

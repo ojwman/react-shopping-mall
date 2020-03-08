@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import gStore from "./store";
 
+import "./Menu.css";
+
 class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
       navCollapsed: true,
-      liOpened: true,
       loginYN: window.localStorage.getItem("token")
     };
     gStore.subscribe(() => {
@@ -21,12 +22,9 @@ class Menu extends Component {
   _onToggleNav = () => {
     this.setState({ navCollapsed: !this.state.navCollapsed });
   };
-  _onToggleLi = () => {
-    this.setState({ liOpened: !this.state.liOpened });
-  };
   render() {
     console.log("Menu render");
-    const { navCollapsed, liOpened } = this.state;
+    const { navCollapsed } = this.state;
     return (
       <nav className="navbar navbar-default">
         <div className="navbar-header">
@@ -52,47 +50,82 @@ class Menu extends Component {
                 to={"/shop/item-list?keyword=" + this.state.keyword}
                 id="link-item-list"
               >
-                아이템 리스트
+                BEST
               </Link>
             </li>
             <li>
-              <Link to="/shop/basket">장바구니</Link>
+              <Link to="/">NEW</Link>
             </li>
-            <li>
-              <Link to="/mypage/basic-info">마이페이지</Link>
-            </li>
-            <li
-              className={"dropdown " + (liOpened ? "" : "open")}
-              onClick={this._onToggleLi}
-            >
+            <li className="dropdown">
               <Link
-                to="/"
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 role="button"
                 aria-expanded="false"
               >
-                Dropdown <span className="caret"></span>
+                OUTER <span className="caret"></span>
               </Link>
               <ul className="dropdown-menu" role="menu">
                 <li>
-                  <Link to="/">Action</Link>
+                  <Link to="/">코드</Link>
                 </li>
                 <li>
-                  <Link to="/">Another action</Link>
+                  <Link to="/">패딩</Link>
                 </li>
                 <li>
-                  <Link to="/">Something else here</Link>
-                </li>
-                <li className="divider"></li>
-                <li>
-                  <Link to="/">Separated link</Link>
+                  <Link to="/">가디건</Link>
                 </li>
                 <li className="divider"></li>
                 <li>
-                  <Link to="/">One more separated link</Link>
+                  <Link to="/">자켓</Link>
+                </li>
+                <li className="divider"></li>
+                <li>
+                  <Link to="/">조끼</Link>
                 </li>
               </ul>
+            </li>
+            <li className="dropdown">
+              <Link
+                className="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-expanded="false"
+              >
+                TOP <span className="caret"></span>
+              </Link>
+              <ul className="dropdown-menu" role="menu">
+                <li>
+                  <Link to="/">니트</Link>
+                </li>
+                <li>
+                  <Link to="/">맨투맨&후드</Link>
+                </li>
+              </ul>
+            </li>
+            <li className="dropdown">
+              <Link
+                className="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-expanded="false"
+              >
+                BOTTOM <span className="caret"></span>
+              </Link>
+              <ul className="dropdown-menu" role="menu">
+                <li>
+                  <Link to="/">면팬츠</Link>
+                </li>
+                <li>
+                  <Link to="/">스커트</Link>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <Link to="/shop/basket">SALE</Link>
+            </li>
+            <li>
+              <Link to="/shop/basket">장바구니</Link>
             </li>
           </ul>
           <ul className="nav navbar-nav navbar-right">

@@ -76,7 +76,7 @@ class Login extends Component {
             var oResult = JSON.parse(text);
 
             if (oResult.bUser === true) {
-              alert("is User");
+              alert("로그인되었습니다.");
               var token = res.headers.get("jwt-token");
               window.localStorage.setItem("jwt-token", token);
               gStore.dispatch({ type: "LOGIN", jwt_token: "Y" });

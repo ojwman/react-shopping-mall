@@ -4,10 +4,8 @@ export default createStore(function(state, action) {
   if (state === undefined) {
     console.log("store init");
     console.log("jwt-token", window.localStorage.getItem("jwt-token"));
-    if (
-      window.localStorage.getItem("jwt-token") != null &&
-      window.localStorage.getItem("jwt-token").length > 0
-    ) {
+    var token = window.localStorage.getItem("jwt-token");
+    if (token != null && token.length > 0) {
       return { loginYN: "Y" };
     } else {
       return { loginYN: "N" };

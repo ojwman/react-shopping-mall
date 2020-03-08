@@ -6,6 +6,7 @@ import NotFound from "./Error/NotFound";
 class MyPage extends Component {
   render() {
     console.log("MyPage render");
+    debugger;
     var name = this.props.match.params.name;
     if (name === "basic-info") {
       return <BasicInfo />;

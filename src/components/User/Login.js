@@ -77,10 +77,10 @@ class Login extends Component {
 
             if (oResult.bUser === true) {
               alert("is User");
-              var token = res.headers.get("token");
-              window.localStorage.setItem("token", token);
+              var token = res.headers.get("jwt-token");
+              window.localStorage.setItem("jwt-token", token);
               gStore.dispatch({ type: "LOGIN", jwt_token: "Y" });
-              this.props.history.push("/");
+              this.props.history.replace("/");
             } else {
               alert("ID 또는 PW가 틀렸습니다.");
             }

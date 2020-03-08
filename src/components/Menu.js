@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import gStore from "./store";
+import gStore from "../store";
 
 import "./Menu.css";
 
@@ -9,14 +9,13 @@ class Menu extends Component {
     super(props);
     this.state = {
       navCollapsed: true,
-      loginYN: window.localStorage.getItem("token")
+      loginYN: gStore.getState().loginYN
     };
     gStore.subscribe(() => {
-      console.log("gStore값 변경");
+      console.log("Menu gStore값 변경");
       this.setState({
         loginYN: gStore.getState().loginYN
       });
-      console.log("loginYN", this.state.loginYN);
     });
   }
   _onToggleNav = () => {
@@ -144,7 +143,7 @@ class Menu extends Component {
               >
                 로그인
               </Link>
-              <Link
+              {/* <Link
                 id="mypageBtn"
                 className={
                   (this.state.loginYN === "Y" ? "show" : "hidden") +
@@ -158,7 +157,7 @@ class Menu extends Component {
                 }}
               >
                 마이페이지
-              </Link>
+              </Link> */}
             </li>
           </ul>
         </div>

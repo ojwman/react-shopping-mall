@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import gStore from "../../store";
 
 class User extends Component {
@@ -19,13 +18,48 @@ class User extends Component {
     if (this.state.loginYN === "Y") {
       return (
         <div className="text-center">
-          <Link
+          {/* <Link
             id="mypageBtn"
             className={"btn btn-default"}
             to="/mypage/basic-info"
           >
             마이페이지
-          </Link>
+          </Link> */}
+          <button
+            type="button"
+            className="btn btn-default"
+            onClick={function() {
+              var token = window.localStorage.getItem("jwt-token");
+
+              var oOption = {
+                headers: {
+                  "jwt-token": token
+                }
+              };
+
+              fetch("/user/jwt-auth/myinfo/ojw", oOption)
+                .then(res => {
+                  alert(res.status);
+
+                  if (res.status === 200) {
+                    res.text().then(text => {
+                      alert(text);
+                    });
+                  } else if (res.status === 401) {
+                    res.text().then(text => {
+                      alert(text);
+                    });
+                  } else {
+                    res.text().then(text => {
+                      alert(text);
+                    });
+                  }
+                })
+                .catch(err => alert(err));
+            }}
+          >
+            마이페이지
+          </button>
           <button
             type="button"
             className="btn btn-default"

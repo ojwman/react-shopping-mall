@@ -6,26 +6,79 @@ class ItemList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      items: [],
+      limitFrom: 0,
+      limitCount: 2
     };
   }
-  componentWillMount() {
+
+  UNSAFE_componentWillMount() {
+    console.log("UNSAFE_componentWillMount");
+    this.pagingItemList();
+    // 스크롤 이벤트 적용
+    window.addEventListener("scroll", this.onScroll);
+  }
+
+  onScroll = e => {
+    const { innerHeight } = window;
+    const { scrollHeight } = document.body;
+    var setScrollTiemout = "";
+    // IE에서는 document.documentElement 를 사용.
+    const scrollTop =
+      (document.documentElement && document.documentElement.scrollTop) ||
+      document.body.scrollTop;
+    // 스크롤링 했을때, 브라우저의 가장 밑에서 50정도 높이가 남았을때에 실행하기위함.
+    if (scrollHeight - innerHeight - scrollTop < 50) {
+      console.log("Almost Bottom Of This Browser : ", e);
+      // 스크롤링 이벤트 제거
+      window.removeEventListener("scroll", this.onScroll);
+      setScrollTiemout = setTimeout(
+        function() {
+          this.pagingItemList();
+        }.bind(this),
+        30
+      );
+      //this.pagingItemList();
+    }
+  };
+
+  pagingItemList() {
+    var status = "";
     fetch(
       process.env.REACT_APP_BACKEND_API_URL +
         "/item/category/" +
         "pants" +
         "/limitFrom/" +
-        "0" +
+        this.state.limitFrom +
         "/limitCount/" +
-        "6"
+        this.state.limitCount
     )
-      .then(res => res.json())
-      .then(data =>
-        this.setState({
-          items: data
-        })
-      )
+      .then(res => {
+        status = res.status;
+        if (res.status === 200) {
+          res.json().then(data => {
+            this.setState({
+              items: this.state.items.concat(data),
+              limitFrom: this.state.limitFrom + 2,
+              limitCount: this.state.limitCount
+            });
+          });
+        }
+      })
+      .then(() => {
+        if (status === 200) {
+          // 스크롤 이벤트 적용
+          window.addEventListener("scroll", this.onScroll);
+        } else {
+          console.log(status, ": 더 이상 그릴 수 없습니다.");
+        }
+      })
       .catch(err => alert(err));
+  }
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+    // 언마운트 될때에, 스크롤링 이벤트 제거
+    window.removeEventListener("scroll", this.onScroll);
   }
   render() {
     console.log("ItemList render");
@@ -52,7 +105,7 @@ class ItemList extends Component {
                 to={"/shop/item-detail?id=" + idx.id}
                 key={idx.id + 1}
               >
-                아이템 디테일 {idx.id}번상품
+                아이템 {idx.id}번상품
               </Link>{" "}
               <Link className="btn btn-primary" to="/" key={idx.id + 10}>
                 찜

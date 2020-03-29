@@ -12,7 +12,8 @@ class Menu extends Component {
       loginYN: gStore.getState().loginYN
     };
     gStore.subscribe(() => {
-      console.log("Menu gStore값 변경");
+      console.log("Menu gStore값 변경 : ", gStore.getState());
+
       this.setState({
         loginYN: gStore.getState().loginYN
       });
@@ -143,21 +144,6 @@ class Menu extends Component {
               >
                 로그인
               </Link>
-              {/* <Link
-                id="mypageBtn"
-                className={
-                  (this.state.loginYN === "Y" ? "show" : "hidden") +
-                  " btn btn-default"
-                }
-                to="/mypage/basic-info"
-                style={{
-                  padding: "10px",
-                  margin: "4px",
-                  display: "none"
-                }}
-              >
-                마이페이지
-              </Link> */}
             </li>
           </ul>
         </div>
